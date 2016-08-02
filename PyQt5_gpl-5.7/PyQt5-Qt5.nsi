@@ -31,8 +31,8 @@
 !define PYQT_QT_DOC_VERS    "5"
 
 # These are all derived from the above.
-# !define PYQT_PYTHON_DIR     "C:\Python${PYQT_PYTHON_MAJOR}${PYQT_PYTHON_MINOR}"
-!define PYQT_PYTHON_DIR     "d:\venv\pyqt5"
+!define PYQT_PYTHON_DIR     "C:\Python${PYQT_PYTHON_MAJOR}${PYQT_PYTHON_MINOR}"
+# !define PYQT_PYTHON_DIR     "d:\venv\pyqt5"
 !define PYQT_COMPILE_ROOT  "d:\pyqt5_maya2017"
 
 !define PYQT_PYTHON_VERS    "${PYQT_PYTHON_MAJOR}.${PYQT_PYTHON_MINOR}"
@@ -73,6 +73,8 @@ drivers and the required OpenSSL DLLs.$\r$\n\
 $\r$\n\
 Any code you write must be released under a license that is compatible with \
 the GPL.$\r$\n\
+$\r$\n\
+CgVFX精神病院 105941496 @衰大$\r$\n\
 $\r$\n\
 Click Next to continue."
 
@@ -410,17 +412,28 @@ Section "Developer tools" SecTools
 
     SetOverwrite on
 
-    # SetOutPath $INSTDIR\Lib\site-packages\PyQt5
+    SetOutPath $INSTDIR\Lib\site-packages\PyQt5
+    File ".\sip\pyrcc\pyrcc_main.py"
+    File ".\pyrcc\pyrcc.pyd"
+    File ".\sip\pylupdate\pylupdate_main.py"
+    File ".\pylupdate\pylupdate.pyd"
+
     SetOutPath $INSTDIR
     # File .\pylupdate\release\pylupdate5.exe
     # File .\pyrcc\release\pyrcc5.exe
-    File ${PYQT_PYTHON_DIR}\pylupdate5.bat
-    File ${PYQT_PYTHON_DIR}\pyrcc5.bat
-
 
     FileOpen $0 $INSTDIR\Lib\site-packages\PyQt5\pyuic5.bat w
     FileWrite $0 "@$\"$INSTDIR\python$\" -m PyQt5.uic.pyuic %1 %2 %3 %4 %5 %6 %7 %8 %9$\r$\n"
     FileClose $0
+
+    FileOpen $0 $INSTDIR\Lib\site-packages\PyQt5\pyrcc5.bat w
+    FileWrite $0 "@$\"$INSTDIR\python$\" -m PyQt5.pyrcc_main %1 %2 %3 %4 %5 %6 %7 %8 %9$\r$\n"
+    FileClose $0
+
+    FileOpen $0 $INSTDIR\Lib\site-packages\PyQt5\pylupdate5.bat w
+    FileWrite $0 "@$\"$INSTDIR\python$\" -m PyQt5.pylupdate_main %1 %2 %3 %4 %5 %6 %7 %8 %9$\r$\n"
+    FileClose $0
+
 SectionEnd
 
 Section "Qt developer tools" SecQtTools
